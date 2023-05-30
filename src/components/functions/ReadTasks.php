@@ -4,9 +4,9 @@ header('Content-type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 
 include '../essentials/connection.php';
-include '../classes/Task.php';
+include '../classes/TaskPerson.php';
 
-$sQuery = "SELECT * FROM task";
+$sQuery = "SELECT * FROM task INNER JOIN user ON task.user_id = user.user_id";
 $oRecord = $oConnection->query($sQuery);
 $oTasks = array();
 while ($oRow = $oRecord->fetch(PDO::FETCH_BOTH)){
@@ -16,8 +16,9 @@ while ($oRow = $oRecord->fetch(PDO::FETCH_BOTH)){
     $description = $oRow['description'];
     $solved = $oRow['solved'];
     $deadline = $oRow['deadline'];
+    $username = $oRow['username'];
 
-    $oTask = new Task($task_id, $user_id, $name, $description, $solved, $deadline);
+    $oTask = new TaskPerson($task_id, $user_id, $name, $description, $solved, $deadline, $username);
     array_push($oTasks, $oTask);
 }
 

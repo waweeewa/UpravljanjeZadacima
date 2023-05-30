@@ -1,9 +1,12 @@
 <?php
 
+require_once  "User.php";
+require_once  "Task.php";
+
 class Comment{
     public $comment_id = "";
-    public Task $task_id;
-    public User $user_id;
+    public $task_id;
+    public $user_id;
     public $description = "";
     public $comment_date = "";
 
