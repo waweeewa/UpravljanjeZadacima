@@ -6,8 +6,8 @@ header("Access-Control-Allow-Methods: POST");
 header("Content-type: application/json; charset=utf-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, Access-Control-Allow-Methods");
 
-include 'connection.php';
-include 'Person.php';
+include '../essentials/connection.php';
+include '../classes/Person.php';
 
 $id = $_GET['person_id'];
 

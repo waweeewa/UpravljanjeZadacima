@@ -5,8 +5,8 @@ header("Access-Control-Allow-Methods: POST");
 header("COntent-Type:application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, Access-Control-Allow-Methods");
 
-include 'connection.php';
-include 'Task.php';
+include '../essentials/connection.php';
+include '../classes/Task.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
 echo $data;
@@ -14,7 +14,7 @@ $sUser_Id = $data['user_id'];
 $sName = $data['name'];
 $sDescription = $data['description'];
 $sSolved = false;
-$sDeadline = fnasdkjfnasdkjfn;   //KASNIJE
+$sDeadline = false;   //KASNIJE
 
 try
 {

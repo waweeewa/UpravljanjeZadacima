@@ -3,8 +3,8 @@ header('Content-type: text/json');
 header('Content-type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 
-include 'connection.php';
-include 'Task.php';
+include '../essentials/connection.php';
+include '../classes/Task.php';
 
 $sQuery = "SELECT * FROM task";
 $oRecord = $oConnection->query($sQuery);
