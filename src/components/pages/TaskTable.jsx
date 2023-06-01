@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from '../Header.jsx';
 import {Link} from 'react-router-dom';
 
 export default function TaskTable()
@@ -41,6 +42,7 @@ export default function TaskTable()
 
     return (
         <>
+        <Header/>
         <table className="table table-striped">
             <thead>
                 <tr>
