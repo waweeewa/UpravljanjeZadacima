@@ -16,7 +16,7 @@ $nId = $data["task_id"];
 
 try
 {
-    $sQuery = "DELETE FROM task WHERE id=?";
+    $sQuery = "DELETE FROM task WHERE task_id=?";
     $oRecord = $oConnection->prepare($sQuery);
     $oRecord->execute([$nId]);
 } catch (PDOException $pe) {

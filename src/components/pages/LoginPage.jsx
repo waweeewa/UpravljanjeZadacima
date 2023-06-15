@@ -6,27 +6,24 @@ const LoginPage = ({ setLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const formData = new FormData();
-  formData.append('username', username);
-  formData.append('password', password);
 
   // Function to handle form submission
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
-        `http://localhost/Upravljanje/src/components/functions/Login.php`,
-        formData
+        'http://localhost/Upravljanje/src/components/functions/Login.php',
+        { username, password } // Send username and password as an object
       );
-      console.log(response.data);
       if (response.data.success) {
         // If the credentials are correct, save the token in local storage
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('username', response.data.username);
+        localStorage.setItem('user_id', response.data.user_id)
         setLoggedIn(true);
         navigate('/dashboard'); // Navigate to the dashboard page
       } else {
-        console.log('Invalid credentials');
+        alert('Invalid credentials');
       }
     } catch (error) {
       console.log('An error occurred', error);

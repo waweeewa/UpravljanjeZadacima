@@ -1,0 +1,25 @@
+<?php
+header('Content-type: text/json');
+header('Content-type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+
+include '../essentials/connection.php';
+include '../classes/UserTask.php';
+
+$sUsername = $_GET['username'];
+
+$sQuery = "SELECT * FROM user WHERE username != :username";
+$oStatement = $oConnection->prepare($sQuery);
+$oStatement->bindValue(':username', $sUsername, PDO::PARAM_STR);
+$oStatement->execute();
+
+$oTasks = array();
+while ($oRow = $oStatement->fetch(PDO::FETCH_ASSOC)) {
+    $user_id = $oRow['user_id'];
+    $username = $oRow['username'];
+
+    $oTask = new UserTask($user_id, $username);
+    $oTasks[] = $oTask;
+}
+
+echo json_encode($oTasks);
