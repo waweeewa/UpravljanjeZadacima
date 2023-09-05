@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../css/LoginPage.css';
 
 const LoginPage = ({ setLoggedIn }) => {
   const [username, setUsername] = useState('');
@@ -15,6 +16,7 @@ const LoginPage = ({ setLoggedIn }) => {
         'http://localhost/Upravljanje/src/components/functions/Login.php',
         { username, password } // Send username and password as an object
       );
+      console.log(response.data)
       if (response.data.success) {
         // If the credentials are correct, save the token in local storage
         localStorage.setItem('token', response.data.token);
@@ -29,6 +31,16 @@ const LoginPage = ({ setLoggedIn }) => {
       console.log('An error occurred', error);
     }
   };
+
+  const handleReg = async (e)=>{
+    e.preventDefault();
+    try{
+      navigate('/registration');
+    }
+    catch (error){
+      console.log('An error occured', error);
+    }
+  }
 
   // Check if a token exists in local storage
   const token = localStorage.getItem('token');
@@ -45,7 +57,7 @@ const LoginPage = ({ setLoggedIn }) => {
       <h2>Login Page</h2>
       <form onSubmit={handleLogin}>
         <div>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">Username:   </label>
           <input
             type="text"
             id="username"
@@ -54,7 +66,7 @@ const LoginPage = ({ setLoggedIn }) => {
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password:   </label>
           <input
             type="password"
             id="password"
@@ -62,7 +74,10 @@ const LoginPage = ({ setLoggedIn }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Login</button>
+        <div className="button-container">
+          <button type="submit" class="button">Login</button>
+          <button onClick={handleReg} class="button">Registration</button>
+        </div>
       </form>
     </div>
   );

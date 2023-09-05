@@ -1,27 +1,53 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
-header('Content-type: text/json');
-header("Access-Control-Allow-Headers: access");
-header("Access-Control-Allow-Methods: DELETE");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, Access-Control-Allow-Methods");
+header("Access-Control-Allow-Origin: http://localhost:5173");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Credentials: true");
 
-include_once 'connection.php';
+include '../essentials/connection.php';
 include '../classes/TaskPerson.php';
 
-$data = json_decode(file_get_contents("php://input"), true);
-echo $data;
-$nId = $data["task_id"];
 
-try
-{
-    $sQuery = "DELETE FROM task WHERE task_id=?";
-    $oRecord = $oConnection->prepare($sQuery);
-    $oRecord->execute([$nId]);
-} catch (PDOException $pe) {
-    die("Greška: Nije moguće izvršiti $sQuery. " . $pe->getMessage());
+if(isset($_GET['task_id'])) {
+    $taskId = $_GET['task_id'];
+
+    // Perform the cascading delete of the task and its associated comments
+    // Replace this code with your actual cascading delete logic using $taskId
+
+    // Example code: Delete the task and comments from 'tasks' and 'comments' tables
+    $query = "DELETE FROM comment WHERE task_id = $taskId";
+    $result = $oConnection->query($query);
+    
+    // Delete the task
+    $query = "DELETE FROM task WHERE task_id = $taskId";
+    $result = $oConnection->query($query);
+
+    if ($result) {
+        // Deletion successful
+        $response = array(
+            'success' => true,
+            'message' => 'Task and associated comments deleted successfully',
+            'aaa' => $taskId
+        );
+    } else {
+        // Deletion failed
+        $response = array(
+            'success' => false,
+            'message' => 'Failed to delete task and associated comments',
+            'aaa' => $taskId
+        );
+    }
+} else {
+    // Task ID not provided
+    $response = array(
+        'success' => false,
+        'message' => 'Task ID not provided',
+        'aaa' => $taskId
+    );
 }
-echo json_encode($data)
 
+// Send the response as JSON
+header('Content-Type: application/json');
+echo json_encode($response);
 ?>

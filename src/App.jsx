@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import React, {useState,useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import TaskTable from './components/pages/TaskTable.jsx';
 import LoginPage from './components/pages/LoginPage.jsx';
 import CommentTable from './components/pages/CommentTable';
+import RegistrationPage from './components/pages/RegistrationPage';
+import UserProfile from './components/pages/UserProfile';
+import Workers from './components/pages/Workers';
 import './App.css';
+
+
 
 function SignOut({ handleSignOut }) {
   useEffect(() => {
-    handleSignOut(); // Call the handleSignOut function when the component mounts
+    handleSignOut();
   }, [handleSignOut]);
 
   return <Navigate to="/" replace />;
@@ -49,18 +54,21 @@ function App() {
       <Routes>
         {loggedIn ? (
           <>
+            <Route path="/workers" element={<Workers/>} />
             <Route path="/dashboard" element={<TaskTable />} />
             <Route path="/comments/:commentid" element={<CommentTable />} />
+            <Route path="/profile/:commentid" element={<UserProfile/>} />
             <Route path="/signout" element={<SignOut handleSignOut={handleSignOut} />} />
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </>
         ) : (
           <>
             <Route
-              path="/"
+              path="/login"
               element={<LoginPage setLoggedIn={setLoggedIn} handleLogin={handleLogin} />}
             />
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/registration" element={<RegistrationPage/>} />
+            <Route path="*" element={<Navigate to="/login" />} />
           </>
         )}
       </Routes>

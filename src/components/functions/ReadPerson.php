@@ -9,17 +9,22 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include '../essentials/connection.php';
 include '../classes/Person.php';
 
-$id = $_GET['person_id'];
+$id = $_GET['user_id'];
 
-$sQuery = "SELECT * FROM person WHERE id=" . $id;
+$sQuery = "SELECT * FROM person JOIN user on person.user_id = user.user_id WHERE person.user_id=" . $id;
 $oRecord = $oConnection->query($sQuery);
 $oPeople = array();
 while ($oRow = $oRecord->fetch(PDO::FETCH_BOTH)){
-    $person_id = $oRow['person_id'];
+    $username = $oRow['username'];
     $firstname = $oRow['firstname'];
     $lastname = $oRow['lastname'];
+    $avgperf = $oRow['avgperf'];
+    $totcomp = $oRow['totcomp'];
+    $lowcomp = $oRow['lowcomp'];
+    $medcomp = $oRow['medcomp'];
+    $highcomp = $oRow['highcomp'];  
 
-    $oPerson = new Person($person_id,$firstname,$lastname);
+    $oPerson = new Person($username, $firstname, $lastname, $avgperf, $totcomp, $lowcomp, $medcomp, $highcomp);
     array_push($oPeople,$oPerson);
 }
 

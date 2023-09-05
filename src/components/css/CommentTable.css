@@ -33,3 +33,7 @@
     overflow-wrap: break-word;
     word-break: break-all;
   }
+  .textareawow{
+    width: 400px;
+    padding: 10px 10px ;
+  }

@@ -5,39 +5,18 @@ import Header from '../Header.jsx';
 import { useParams } from 'react-router-dom';
 import '../css/CommentTable.css';
 
-import { format } from 'date-fns';
-
-
-const CommentTable = () => {
+const Workers = () => {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentData, setCommentData] = useState({
     comment: '',
   });
-  const [users, setUsers] = useState([]);
 
   const { commentid } = useParams();
 
   useEffect(() => {
     getComments();
-    getUsers();
   }, []);
-
-  
-  async function getUsers() {
-    try {
-      const response = await axios.get('http://localhost/Upravljanje/src/components/functions/GetUsers.php');
-      if (Array.isArray(response.data)) {
-        //const filteredUsers = response.data.filter((user) => user.username !== localStorage.getItem('username'));
-        const filteredUsers = response.data;
-        setUsers(filteredUsers);
-      } else {
-        console.error('Response data is not an array:', response.data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   async function getComments() {
     try {
@@ -105,41 +84,21 @@ const CommentTable = () => {
       <Header />
 
       <div className="mt-5">
-        <h1>Comments</h1>
         <div className="d-flex justify-content-end mb-3">
           <button className="btn btn-primary" onClick={() => setShowModal(true)}>
             Add Comment
           </button>
         </div>
-        <div className="mb-3">
-          <div className="d-flex">
-            <select
-              id="userFilter"
-              className="form-control me-2"
-              style={{ width: '150px' }}
-              value={userFilter}
-              onChange={(e) => setUserFilter(e.target.value)}
-            >
-              <option value="">All Users</option>
-              {users.map((user) => (
-                <option key={user.user_id} value={user.user_id}>
-                  {user.username}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
 
         {comments.length > 0 ? (
-          
           <table className="table table-stripped">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Comment</th>
-                <th>Comment Date</th>
-                <th>Username</th>
-                <th>Delete</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Deadline</th>
+                <th>Description</th>
               </tr>
             </thead>
             <tbody>
@@ -147,7 +106,7 @@ const CommentTable = () => {
                 <tr key={comment.comment_id.toString()}>
                   <td>{number++}</td>
                   <td className="comment-cell">{comment.commentary}</td>
-                  <td>{format(new Date(comment.comment_date), 'dd/MM/yyyy')}</td>
+                  <td>{comment.comment_date}</td>
                   <td>{comment.username}</td>
                   <td>
                     <button
@@ -196,7 +155,6 @@ const CommentTable = () => {
                     className="form-control"
                     id="comment"
                     value={commentData.comment}
-                    class="textareawow"
                     onChange={(e) => setCommentData({ comment: e.target.value })}
                     required
                   ></textarea>
@@ -213,4 +171,4 @@ const CommentTable = () => {
   );
 };
 
-export default CommentTable;
+export default Workers;

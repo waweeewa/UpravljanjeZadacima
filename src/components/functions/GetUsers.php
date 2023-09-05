@@ -1,16 +1,16 @@
 <?php
-header('Content-type: text/json');
 header('Content-type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, Access-Control-Allow-Methods');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 include '../essentials/connection.php';
 include '../classes/UserTask.php';
 
-$sUsername = $_GET['username'];
-
-$sQuery = "SELECT * FROM user WHERE username != :username";
+$sQuery = "SELECT * FROM user";
 $oStatement = $oConnection->prepare($sQuery);
-$oStatement->bindValue(':username', $sUsername, PDO::PARAM_STR);
 $oStatement->execute();
 
 $oTasks = array();
@@ -23,3 +23,4 @@ while ($oRow = $oStatement->fetch(PDO::FETCH_ASSOC)) {
 }
 
 echo json_encode($oTasks);
+?>

@@ -36,3 +36,37 @@
 .task-table button.btn-outline-danger:hover {
   color: white;
 }
+
+.table th:nth-child(2),
+.table td:nth-child(2),
+.table th:nth-child(6),
+.table td:nth-child(6) {
+  max-width: 200px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.status-not-started {
+  background-color: #f7a07d; /* Set your desired color */
+}
+
+.status-in-process {
+  background-color: #ffdb58; /* Set your desired color */
+}
+
+.status-finished {
+  background-color: #98fb98; /* Set your desired color */
+}
+
+.Blue {
+  background-color: blue;
+}
+
+.Orange {
+  background-color: orange;
+}
+
+.Green {
+  background-color: green;
+}

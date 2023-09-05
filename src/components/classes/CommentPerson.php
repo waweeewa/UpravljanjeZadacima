@@ -1,8 +1,5 @@
 <?php
 
-require_once "User.php";
-require_once "Comment.php";
-require_once "Task.php";
 
 class CommentPerson {
     public $comment_id;

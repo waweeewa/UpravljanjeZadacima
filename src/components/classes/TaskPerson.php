@@ -1,8 +1,5 @@
 <?php
 
-require_once  "User.php";
-require_once  "Task.php";
-
 class TaskPerson {
     public $task_id;
     public $user_id;
@@ -11,8 +8,9 @@ class TaskPerson {
     public $solved;
     public $deadline;
     public $username;
+    public $importance;
 
-    public function __construct($task_id, $user_id, $name, $description, $solved, $deadline, $username) {
+    public function __construct($task_id, $user_id, $name, $description, $solved, $deadline, $username, $importance) {
         $this->task_id = $task_id;
         $this->user_id = $user_id;
         $this->name = $name;
@@ -20,6 +18,7 @@ class TaskPerson {
         $this->solved = $solved;
         $this->deadline = $deadline;
         $this->username = $username;
+        $this->importance = $importance;
     }
 }
 
