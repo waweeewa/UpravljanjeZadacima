@@ -7,7 +7,6 @@ import '../css/CommentTable.css';
 
 import { format } from 'date-fns';
 
-
 const CommentTable = () => {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -15,6 +14,8 @@ const CommentTable = () => {
     comment: '',
   });
   const [users, setUsers] = useState([]);
+  const [usernameFilter, setUsernameFilter] = useState('');
+  const [notification, setNotification] = useState(null);
 
   const { commentid } = useParams();
 
@@ -23,12 +24,10 @@ const CommentTable = () => {
     getUsers();
   }, []);
 
-  
   async function getUsers() {
     try {
       const response = await axios.get('http://localhost/Upravljanje/src/components/functions/GetUsers.php');
       if (Array.isArray(response.data)) {
-        //const filteredUsers = response.data.filter((user) => user.username !== localStorage.getItem('username'));
         const filteredUsers = response.data;
         setUsers(filteredUsers);
       } else {
@@ -53,28 +52,27 @@ const CommentTable = () => {
 
   async function submitComment(event) {
     event.preventDefault();
-
+  
     try {
       const today = new Date();
       const year = today.getFullYear();
       const month = String(today.getMonth() + 1).padStart(2, '0');
       const day = String(today.getDate()).padStart(2, '0');
       const currentDate = `${year}-${month}-${day}`;
+  
       const commentPayload = {
         task_id: commentid,
+        user_id: localStorage.getItem('user_id'),
         commentary: commentData.comment,
         comment_date: currentDate,
-        user_id: localStorage.getItem('user_id'),
       };
-
-      await axios.get('http://localhost/Upravljanje/src/components/functions/CreateComment.php', {
-        params: commentPayload,
-      });
-
-      setCommentData({ comment: '' });
+  
+      const response = await axios.get(`http://localhost/Upravljanje/src/components/functions/CreateComment.php?task_id=${commentPayload.task_id}&user_id=${commentPayload.user_id}&commentary=${commentPayload.commentary}&comment_date=${commentPayload.comment_date}`);
+  
+      console.log(response.data);
       setShowModal(false);
-
       getComments();
+      showSuccessNotification('Comment created successfully.')
     } catch (error) {
       console.error(error);
     }
@@ -93,18 +91,46 @@ const CommentTable = () => {
       });
 
       setComments(comments.filter((comment) => comment.comment_id !== id));
+      showSuccessNotification('Comment deleted successfully.'); // Show success notification
     } catch (error) {
       console.error(error);
     }
   }
 
-  var number = 1;
+  function showSuccessNotification(message) {
+    setNotification({ type: 'success', message });
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000); // Hide notification after 3 seconds
+  }
+
+  const [filteredComments, setFilteredComments] = useState([]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [comments, usernameFilter]);
+
+  function applyFilters() {
+    let filteredComments = comments;
+
+    if (usernameFilter) {
+      filteredComments = comments.filter((comment) => comment.username === usernameFilter);
+    }
+
+    setFilteredComments(filteredComments);
+  }
 
   return (
     <div>
       <Header />
 
-      <div className="mt-5">
+      <div className="mt-5 alert-container">
+        {notification && notification.type === 'success' && (
+          <div className="alert alert-success" role="alert">
+            {notification.message}
+          </div>
+        )}
+
         <h1>Comments</h1>
         <div className="d-flex justify-content-end mb-3">
           <button className="btn btn-primary" onClick={() => setShowModal(true)}>
@@ -117,12 +143,12 @@ const CommentTable = () => {
               id="userFilter"
               className="form-control me-2"
               style={{ width: '150px' }}
-              value={userFilter}
-              onChange={(e) => setUserFilter(e.target.value)}
+              value={usernameFilter}
+              onChange={(e) => setUsernameFilter(e.target.value)}
             >
               <option value="">All Users</option>
               {users.map((user) => (
-                <option key={user.user_id} value={user.user_id}>
+                <option key={user.user_id} value={user.username}>
                   {user.username}
                 </option>
               ))}
@@ -130,12 +156,10 @@ const CommentTable = () => {
           </div>
         </div>
 
-        {comments.length > 0 ? (
-          
-          <table className="table table-stripped">
+        {filteredComments.length > 0 ? (
+          <table className="table task-table">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Comment</th>
                 <th>Comment Date</th>
                 <th>Username</th>
@@ -143,9 +167,8 @@ const CommentTable = () => {
               </tr>
             </thead>
             <tbody>
-              {comments.map((comment) => (
+              {filteredComments.map((comment) => (
                 <tr key={comment.comment_id.toString()}>
-                  <td>{number++}</td>
                   <td className="comment-cell">{comment.commentary}</td>
                   <td>{format(new Date(comment.comment_date), 'dd/MM/yyyy')}</td>
                   <td>{comment.username}</td>
@@ -167,6 +190,7 @@ const CommentTable = () => {
       </div>
 
       {showModal && <div className="modal-backdrop fade show"></div>}
+
 
       <div
         className={`modal ${showModal ? 'show' : ''}`}
@@ -193,10 +217,9 @@ const CommentTable = () => {
                 <div className="form-group">
                   <label htmlFor="comment">Comment</label>
                   <textarea
-                    className="form-control"
+                    className="form-control textareawow"
                     id="comment"
                     value={commentData.comment}
-                    class="textareawow"
                     onChange={(e) => setCommentData({ comment: e.target.value })}
                     required
                   ></textarea>
@@ -212,5 +235,6 @@ const CommentTable = () => {
     </div>
   );
 };
+
 
 export default CommentTable;

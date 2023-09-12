@@ -28,7 +28,7 @@
     word-break: break-word;
   }
   .comment-cell {
-    max-width: 200px;
+    max-width: 500px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-all;

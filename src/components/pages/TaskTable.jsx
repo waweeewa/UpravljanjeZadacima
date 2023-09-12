@@ -16,6 +16,7 @@ export default function TaskTable() {
   const [statusFilter, setStatusFilter] = useState('All');
   const [userFilter, setUserFilter] = useState('');
   const [importanceFilter, setImportanceFilter] = useState('All');
+  const [notification, setNotification] = useState(null);
   const [newTask, setNewTask] = useState({
     name: '',
     description: '',
@@ -67,6 +68,7 @@ export default function TaskTable() {
       console.log(response.data);
       setTasks([]);
       getTasks();
+      showSuccessNotification('Task deleted successfully.')
     } catch (error) {
       console.error(error);
     }
@@ -89,6 +91,7 @@ export default function TaskTable() {
       setShowModal(false);
       setTasks([]);
       getTasks();
+      showSuccessNotification('Task created successfully.')
     } catch (error) {
       console.error(error);
     }
@@ -99,9 +102,17 @@ export default function TaskTable() {
       const response = await axios.get(`http://localhost/Upravljanje/src/components/functions/UpdateTask.php?taskid=${taskId}&solved=${value}`);
       setTasks([]);
       getTasks();
+      showSuccessNotification('Task updated successfully.')
     } catch (error) {
       throw error;
     }
+  }
+
+  function showSuccessNotification(message) {
+    setNotification({ type: 'success', message });
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
   }
 
   var number = 1;
@@ -114,7 +125,12 @@ export default function TaskTable() {
   return (
     <>
       <Header />
-      <div className="mt-5">
+      <div className="mt-5 alert-container">
+        {notification && notification.type === 'success' && (
+          <div className="alert alert-success" role="alert">
+            {notification.message}
+          </div>
+        )}
         <h1>Task management</h1>
         <div className="mb-3">
           <div className="d-flex">
