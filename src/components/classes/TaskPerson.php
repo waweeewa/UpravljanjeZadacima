@@ -9,8 +9,10 @@ class TaskPerson {
     public $deadline;
     public $username;
     public $importance;
+    public $archived;
+    public $giver;
 
-    public function __construct($task_id, $user_id, $name, $description, $solved, $deadline, $username, $importance) {
+    public function __construct($task_id, $user_id, $name, $description, $solved, $deadline, $username, $importance, $archived, $giver) {
         $this->task_id = $task_id;
         $this->user_id = $user_id;
         $this->name = $name;
@@ -19,6 +21,8 @@ class TaskPerson {
         $this->deadline = $deadline;
         $this->username = $username;
         $this->importance = $importance;
+        $this->archived = $archived;
+        $this->giver = $giver;
     }
 }
 

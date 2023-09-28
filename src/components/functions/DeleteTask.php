@@ -11,16 +11,12 @@ include '../classes/TaskPerson.php';
 
 if(isset($_GET['task_id'])) {
     $taskId = $_GET['task_id'];
-
-    // Perform the cascading delete of the task and its associated comments
-    // Replace this code with your actual cascading delete logic using $taskId
-
-    // Example code: Delete the task and comments from 'tasks' and 'comments' tables
-    $query = "DELETE FROM comment WHERE task_id = $taskId";
-    $result = $oConnection->query($query);
     
     // Delete the task
-    $query = "DELETE FROM task WHERE task_id = $taskId";
+    $query = "UPDATE task SET archived = 1 WHERE task_id = $taskId";
+    $result = $oConnection->query($query);
+
+    $query = "UPDATE comment SET archived = 1 WHERE task_id = $taskId";
     $result = $oConnection->query($query);
 
     if ($result) {

@@ -22,8 +22,9 @@ while ($oRow = $oRecord->fetch(PDO::FETCH_BOTH)) {
     $comment_date = $oRow['comment_date'];
     $name = $oRow['name'];
     $username = $oRow['username'];
+    $archived = $oRow['comment_archived'];
 
-    $oPerson = new CommentPerson($comment_id, $commentary, $comment_date, $name, $username);
+    $oPerson = new CommentPerson($comment_id, $commentary, $comment_date, $name, $username, $archived);
     array_push($oPeople, $oPerson);
 }
 

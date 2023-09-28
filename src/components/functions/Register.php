@@ -1,7 +1,10 @@
 <?php
-header('Content-type: application/json');
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: access");
 header("Access-Control-Allow-Methods: POST");
+header("Content-type: application/json; charset=utf-8");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, Access-Control-Allow-Methods");
+header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, Access-Control-Allow-Methods");
 
 include '../essentials/connection.php';

@@ -70,3 +70,66 @@
 .Green {
   background-color: green;
 }
+.select-container {
+  position: relative;
+}
+
+
+.arrow-down {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000; /* Adjust color as needed */
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust this value to position the arrow as you like */
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 4px 0;
+  border-color: #000000 transparent transparent transparent;
+  z-index: 1; /* Ensure arrow is behind select options */
+}
+
+/* Center the text in the options */
+.select-wrapper select option {
+  text-align: center;
+}
+
+.btn-cancel {
+  background-color: #6c757d; /* Gray color */
+  color: white; /* Text color on hover */
+}
+
+.btn-cancel:hover {
+  background-color: #dc3545; /* Red color on hover */
+  color: white; /* Text color on hover */
+}
+
+.sort-icon {
+  margin-left: 5px;
+  font-size: 0.8em;
+}
+
+.asc .fa-sort {
+  transform: rotate(180deg);
+}
+
+.table-container {
+  max-width: 1200px; /* Adjust the value as needed */
+  margin: auto;
+}

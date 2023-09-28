@@ -13,7 +13,7 @@ function Header() {
   }, []);
 
   return (
-    <div className="martin">
+    <div style={{marginBottom:'70px'}} className="martin">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         &nbsp;&nbsp;
         <a className="navbar-brand" href="#">Task management</a>
@@ -35,10 +35,10 @@ function Header() {
             </a>
           </div>
           <div className="collapse navbar-collapse justify-content-end">
-            <span className="navbar-text mr-3">Logged in as: {username}</span>
+            <span className="navbar-text mr-3" style={{fontSize:'1.4em'}}>Logged in as: {username}</span>
             &nbsp;&nbsp;
             <a className="nav-link" href="./signout">
-              <button className="btn btn-danger">Sign Out</button>
+              <button className="btn btn-danger"style={{marginRight:'20px'}}>Sign Out</button>
             </a>
           </div>
         </div>

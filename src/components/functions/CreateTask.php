@@ -12,8 +12,9 @@ $description = $_GET['description'];
 $solved = "Not Started";
 $deadline = $_GET['deadline'];
 $importance = $_GET['importance'];
+$giver = $_GET['giver'];
 
-$stmt = $oConnection->prepare("INSERT INTO task (user_id, name, description, solved, deadline, importance) VALUES (:user_id, :name, :description, :solved, :deadline, :importance)");
+$stmt = $oConnection->prepare("INSERT INTO task (user_id, name, description, solved, deadline, importance, giver) VALUES (:user_id, :name, :description, :solved, :deadline, :importance, :giver)");
 
 $params = array(
     ':user_id' => $user_id,
@@ -21,7 +22,8 @@ $params = array(
     ':description' => $description,
     ':solved' => $solved,
     ':deadline' => $deadline,
-    ':importance' => $importance
+    ':importance' => $importance,
+    ':giver' => $giver
 );
 echo $params;
 $response = array();

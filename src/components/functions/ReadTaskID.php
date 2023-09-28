@@ -6,8 +6,11 @@ header('Access-Control-Allow-Origin: *');
 include '../essentials/connection.php';
 include '../classes/TaskPerson.php';
 
-$sQuery = "SELECT * FROM task INNER JOIN user ON task.user_id = user.user_id";
-$oRecord = $oConnection->query($sQuery);
+$userid = $_GET['task_id'];
+
+$sQuery = "SELECT * FROM task INNER JOIN user ON task.user_id = user.user_id where task.task_id = ?";
+$oRecord = $oConnection->prepare($sQuery);
+$oRecord->execute([$userid]);
 $oTasks = array();
 while ($oRow = $oRecord->fetch(PDO::FETCH_BOTH)){
     $task_id = $oRow['task_id'];

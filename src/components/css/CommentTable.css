@@ -1,39 +1,51 @@
 .table {
-    width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
-  }
-  
-  .table th,
-  .table td {
-    padding: 0.75rem;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
-  }
-  
-  .table thead th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
-  }
-  
-  .table tbody + tbody {
-    border-top: 2px solid #dee2e6;
-  }
-  
-  .mt-5 {
-    margin-top: 3rem;
-  }
-  .multiline {
-    white-space: pre-line;
-    word-break: break-word;
-  }
-  .comment-cell {
-    max-width: 500px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    word-break: break-all;
-  }
-  .textareawow{
-    width: 400px;
-    padding: 10px 10px ;
-  }
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+.mt-5 {
+  margin-top: 3rem;
+}
+.multiline {
+  white-space: pre-line;
+  word-break: break-word;
+}
+.comment-cell {
+  max-width: 500px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+.textareawow{
+  width: 400px;
+  padding: 10px 10px ;
+}
+.arrow-down {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000; /* Adjust color as needed */
+}

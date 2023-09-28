@@ -1,4 +1,4 @@
-.container {
+.container_login {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -13,7 +13,7 @@
   }
   
 
-  form {
+  .form_login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,15 +23,15 @@
     margin-bottom: 5px;
   }
   
-  input[type="text"],
-  input[type="password"] {
+  .input_login[type="text"],
+  .input_login[type="password"] {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
   
-  .button {
+  .button_color  {
     padding: 15px 15px; /* Adjust the padding to change the button size */
     margin-top: 10px;
     background-color: #4caf50;
@@ -76,3 +76,64 @@
   .Green {
     background-color: green;
   }
+
+  .gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    }
+    
+    @media (min-width: 768px) {
+    .gradient-form {
+    height: 100vh !important;
+    }
+    }
+    @media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    }
+    }
+    .custom-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    
+    .error {
+      background-color: #ff7675;
+      color: white;
+    }
+    .custom-notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      font-weight: bold;
+      z-index: 9999;
+    }
+    
+    .custom-notification.success {
+      background-color: #28a745;
+      color: #fff;
+    }
+    
+    .custom-notification.error {
+      background-color: #dc3545;
+      color: #fff;
+    }
+    
+    
+    

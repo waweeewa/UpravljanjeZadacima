@@ -21,8 +21,10 @@ while ($oRow = $oRecord->fetch(PDO::FETCH_BOTH)){
     $deadline = $oRow['deadline'];
     $username = $oRow['username'];
     $importance = $oRow['importance'];
+    $archived = $oRow['archived'];
+    $giver = $oRow['giver'];
 
-    $oTask = new TaskPerson($task_id, $user_id, $name, $description, $solved, $deadline, $username, $importance);
+    $oTask = new TaskPerson($task_id, $user_id, $name, $description, $solved, $deadline, $username, $importance, $archived, $giver);
     array_push($oTasks, $oTask);
 }
 
